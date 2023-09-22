@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
 const env = require('./environment');
 
-mongoose.connect(`mongodb+srv://prathikshetty1411:takeaguess@cluster0.8gmuyqp.mongodb.net/?retryWrites=true&w=majority`);
+mongoose.connect(`mongodb+srv://prathikshetty1411:takeaguess@cluster0.8gmuyqp.mongodb.net/?retryWrites=true&w=majority`, {useNewUrlParser: true});
+
+mongoose.set('strictQuery', false);
 
 const db = mongoose.connection;
 
