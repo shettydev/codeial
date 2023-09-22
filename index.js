@@ -45,7 +45,7 @@ if(env.name == 'development'){
 app.use(logger(env.morgan.mode, env.morgan.options));
 
 // Middleware to parse URL-encoded request bodies
-app.use(express.urlencoded());
+app.use(express.urlencoded({extended: true}));
 
 // Serve static files from the 'public' directory
 app.use('/public', express.static(__dirname + '/public'));
