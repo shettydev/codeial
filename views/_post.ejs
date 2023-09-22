@@ -2,8 +2,8 @@
     <p>
         <% if (locals.user && locals.user.id == post.user.id){ %>
             <small>
-            <a class="delete-post-button" href="/posts/destroy/<%= post.id %>">x</a>
-        </small>
+                <a class="delete-post-button" href="/posts/destroy/<%= post.id %>">x</a>
+            </small>
         <% } %>
         <%= post.content %>
         <br>

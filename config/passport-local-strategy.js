@@ -4,11 +4,6 @@ const LocalStrategy = require('passport-local').Strategy;
 
 const User = require('../models/user');
 
-const MongoStore = require('connect-mongo'); // Import MongoStore here
-
-const sessionMiddleware = require('express-session');
-
-
 // authentication using passport
 passport.use(new LocalStrategy({
     usernameField: 'email', // Assuming your login form has an input field named 'email'

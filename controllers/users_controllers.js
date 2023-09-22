@@ -104,12 +104,14 @@ module.exports.signIn = function(req,res){
 // Create a new user
 module.exports.create = async function(req,res){
   if(req.body.password != req.body.confirm_pass){
-      return res.redirect('back');
+    req.flash('error', 'Password mismatch!');
+    return res.redirect('back');
   }
-
+  
   const user = await User.create({email: req.body.email, name: req.body.name, password: req.body.password});
   if(user){
-      return res.redirect('/users/sign-in');
+    req.flash('success', 'User Created!');
+    return res.redirect('/users/sign-in');
   }
 }
 

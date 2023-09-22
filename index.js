@@ -48,7 +48,7 @@ app.use(logger(env.morgan.mode, env.morgan.options));
 app.use(express.urlencoded());
 
 // Serve static files from the 'public' directory
-app.use(express.static('public'));
+app.use('/public', express.static(__dirname + '/public'));
 
 // Middleware to parse cookies
 app.use(cookieParser());

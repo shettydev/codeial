@@ -1,70 +1,78 @@
-const gulp = require('gulp');
-const sass = require('gulp-sass')(require('node-sass'));
-const cssnano = require('gulp-cssnano');
-const uglify = require('gulp-uglify-es').default;
-const pipeline = require('readable-stream').pipeline;
-const imagemin = require('gulp-imagemin');
-const del = require('del');
+const gulp = require("gulp");
+const sass = require("gulp-sass")(require("sass"));
+const cssnano = require("gulp-cssnano");
+const rev = require("gulp-rev");
+const uglify = require("gulp-uglify-es").default;
+const imagemin = require("gulp-imagemin");
 
-
-gulp.task('css', async function(done) {
-    const rev = await import("gulp-rev").then(function(revv){
-        return revv.default || revv.rev;
-    })
-    console.log('Minifying CSS');
-    gulp.src('./assets/sass/**/*.scss')
+// const del = require('del');
+gulp.task("css", function (done) {
+  console.log("minifying css...");
+  gulp
+    .src("./assets/sass/**/*.scss")
     .pipe(sass())
     .pipe(cssnano())
-    .pipe(gulp.dest('./assets.css'));
-    return gulp.src('./assets/**/*.css')
-
+    .pipe(gulp.dest("./assets.css"));
+  gulp
+    .src("./assets/**/*.css")
     .pipe(rev())
-    .pipe(gulp.dest('./public/assets'))
-    .pipe(rev.manifest({
-        cwd:'public',
-        merge: true
-    })).pipe(gulp.dest('./public/assets'));
+    .pipe(gulp.dest("./public/assets"))
+    .pipe(
+      rev.manifest({
+        cwd: "public",
+        merge: true,
+      })
+    )
+    .pipe(gulp.dest("./public/assets"));
+  done();
 });
 
-gulp.task('js', async function(done){
-    const rev = await import("gulp-rev").then(function(revv){
-        return revv.default || revv.rev;
-    })
-    console.log('minifying js...');
-    return pipeline(
-        gulp.src('./assets/**/*.js'),
-        uglify(),
-        rev(),
-        gulp.dest('./public/assets'),
-        rev.manifest({
-            cwd: 'public',
-            merge: true
-        }),
-        gulp.dest('./public/assets')
-)});
+gulp.task("js", function (done) {
+  console.log("minifying js...");
+  gulp
+    .src("./assets/**/*.js")
+    .pipe(uglify())
+    .pipe(rev())
+    .pipe(gulp.dest("./public/assets"))
+    .pipe(
+      rev.manifest({
+        cwd: "public",
+        merge: true,
+      })
+    )
+    .pipe(gulp.dest("./public/assets"));
+  done();
+});
 
-gulp.task('images', async function(done){
-    const rev = await import("gulp-rev").then(function(revv){
-        return revv.default || revv.rev;
-    })
-    console.log('Compressing Images...');
-    return gulp.src('./assets/**/*.+(png|jpg|gif|svg|jpeg)')
+gulp.task("images", function (done) {
+  console.log("compressing images...");
+  gulp
+    .src("./assets/**/*.+(png|jpg|gif|svg|jpeg)")
     .pipe(imagemin())
     .pipe(rev())
-    .pipe(gulp.dest('./public/assets'))
-    .pipe(rev.manifest({
-        cwd: 'public',
-        merge: true
-    }))
-    .pipe(gulp.dest('./public/assets'))
-})
-
-// empty the public/assets directory
-gulp.task('clean:assets', async function(){
-    await del.sync(['./public/assets'], { force:true });
+    .pipe(gulp.dest("./public/assets"))
+    .pipe(
+      rev.manifest({
+        cwd: "public",
+        merge: true,
+      })
+    )
+    .pipe(gulp.dest("./public/assets"));
+  done();
 });
 
-gulp.task('build', gulp.series( 'css', 'js', 'images', function(done){
-    console.log('Building assets');
+// empty the public/assets directory
+gulp.task("clean:assets", function (done) {
+  // del.sync('./public/assets');
+  done();
+});
+
+// Call the tasks in series
+gulp.task(
+  "build",
+  gulp.series("clean:assets", "css", "js", "images"),
+  function (done) {
+    console.log("Building assets");
     done();
-}))
+  }
+);
