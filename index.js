@@ -14,7 +14,7 @@ const cookieParser = require('cookie-parser');
 const expressLayouts = require('express-ejs-layouts');
 const session = require('express-session');
 const passport = require('passport');
-const MongoStore = require('connect-mongo');
+// const MongoStore = require('connect-mongo');
 const sassMiddleware = require('node-sass-middleware');
 const flash = require('connect-flash');
 const customMware = require('./config/middleware');
@@ -81,10 +81,10 @@ app.use(session({
     cookie: {
         maxAge: (1000 * 60 * 100)
     },
-    store: MongoStore.create({
-        mongoUrl: "mongodb://localhost/passport_development",
-        autoRemove: 'disabled'
-    })
+    // store: MongoStore.create({
+    //     mongoUrl: "mongodb://localhost/passport_development",
+    //     autoRemove: 'disabled'
+    // })
 }));
 
 // Initialize Passport for authentication
