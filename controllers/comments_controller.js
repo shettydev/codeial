@@ -2,8 +2,7 @@ const Comment = require('../models/comment');
 const Post = require('../models/posts')
 const Like = require('../models/like');
 const commentsMailer = require('../mailer/comments_mail');
-const queue = require('../config/kue');
-const commentEmailWorker = require('../workers/comment_email_workers');
+// const queue = require('../config/kue');
 
 
 // Create a new comment
