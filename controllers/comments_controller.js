@@ -22,13 +22,15 @@ module.exports.create = async function(req,res){
 
             comment = await Comment.findById(comment._id).populate('user', 'name email').exec();
 
-            let job = queue.create('emails', comment).save(function(err){
-                if(err){
-                    console.log('Error in creating a queue', err);
-                    return;
-                }
-                console.log('Job enqueued', job.id);
-            });
+            commentsMailer.newComment(populatedComment);
+            
+            // let job = queue.create('emails', comment).save(function(err){    //unable to deploye hence commented
+            //     if(err){
+            //         console.log('Error in creating a queue', err);
+            //         return;
+            //     }
+            //     console.log('Job enqueued', job.id);
+            // });
 
             // Push the newly created comment into the post's comments array and save the post
             post.comments.push(comment);
