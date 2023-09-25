@@ -43,11 +43,11 @@ Before you begin, ensure you have met the following requirements:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/codeial-project.git
+   git clone https://github.com/prathikshetty14/codeial
 
 2. Clone the repository:
 
-  `cd codeial`
+  `cd <project-directory>`
 
 3. Install the dependencies:
   
@@ -63,9 +63,9 @@ Before you begin, ensure you have met the following requirements:
 
 ## Usage
 
-- Visit ``http://localhost:8000`` in your web browser.
+- Visit `http://localhost:8000` in your web browser.
 - Sign up for an account or log in if you already have one.
 - Explore the features of Codeial, create posts, add friends, and enjoy the social experience!
 
 ## Author
-
+*Prathik Shetty* - **Full Stack Developer**
